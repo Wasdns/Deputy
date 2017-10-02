@@ -1,0 +1,1 @@
+gcc main.cpp jsonHandler.cpp -fprofile-arcs -ftest-coverage -Wall -lstdc++ -o main
