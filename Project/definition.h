@@ -34,6 +34,3 @@ struct departments {
 	int event_schedules_number;
 	string event_schedules[200];
 };
-
-extern students student[310];
-extern departments department[25];

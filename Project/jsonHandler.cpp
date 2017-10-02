@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
-#include <json/json.h>
-#include "jsonHandler.h"
+#include <jsoncpp/json/json.h>
 #include "definition.h"
+#include "jsonHandler.h"
 using namespace std;
+
+extern students student[310];
+extern departments department[25];
 
 /* 
  *  Function Name: processJSON
@@ -58,7 +61,7 @@ bool jsonHandler::processJSON(const char* jsonFile) {
 
 			// initialing the tag of each of the students
 			for (int j = 0; j < tag_number; j++) {
-				student[i].tags[j] = root["students"][i]["tag"][j].asString();
+				student[i].tags[j] = root["students"][i]["tags"][j].asString();
 			}
 
 			// initialing the free_time of each of the students
@@ -88,7 +91,7 @@ bool jsonHandler::processJSON(const char* jsonFile) {
 
 			// initialing the tag of each of the departments
 			for (int j = 0; j < tag_number; j++) {
-				department[i].tags[j] = root["departments"][i]["tag"][j].asString();
+				department[i].tags[j] = root["departments"][i]["tags"][j].asString();
 			}
 
 			// initialing the event_schedules of each of the departments
@@ -97,7 +100,8 @@ bool jsonHandler::processJSON(const char* jsonFile) {
 			}
 		}
 	} else { // raise parsing error
-		cout << "Error: Reader parsing error!";
+		cout << "Error: Reader parsing error!" << endl;
+		cout << reader.getFormattedErrorMessages() << endl; 
 		return false;
 	}
 
