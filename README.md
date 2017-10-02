@@ -32,7 +32,13 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/maste
 $ brew install jsoncpp
 ```
 
-2.Compile the source codes:
+For Ubuntu14.04 environment(recommend):
+
+```
+$ sudo apt-get install libjsoncpp-dev
+```
+
+2.Compile the source codes(passed in Ubuntu 14.04 environment):
 
 ```
 $ cd Project/
