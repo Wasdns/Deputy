@@ -3,10 +3,12 @@
 #include <iostream>
 #include "definition.h"
 #include "jsonHandler.h"
+#include "outputJson.h"
 using namespace std;
 
 extern students student[310];
 extern departments department[25];
+extern addmitted addmitted_department[25];
 
 int main() {
 	jsonHandler jsonHandler_instance;

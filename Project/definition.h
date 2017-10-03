@@ -34,3 +34,12 @@ struct departments {
 	int event_schedules_number;
 	string event_schedules[200];
 };
+
+struct addmitted {
+	// total number of students
+	int number;
+	// students
+	string student_number[310];
+	// department number
+	string department_number;
+};
