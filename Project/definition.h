@@ -17,6 +17,9 @@ struct students {
 	// free time
 	int free_time_number;
 	string free_time[200];
+	
+	// isChosenByDepartment?
+	bool isChosenByDepartment;
 };
 
 struct departments {
