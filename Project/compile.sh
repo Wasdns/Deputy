@@ -1,1 +1,1 @@
-gcc definition.cpp main.cpp jsonHandler.cpp -Wall -ljsoncpp -lstdc++ -o main
+gcc definition.cpp main.cpp jsonHandler.cpp outputJson.cpp -Wall -ljsoncpp -lstdc++ -o main

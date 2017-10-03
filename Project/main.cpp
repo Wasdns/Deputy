@@ -41,5 +41,31 @@ int main() {
 		cout << "Error: JSON file processing error!" << endl;
 		return 1;
 	}
+
+	/* Output JSON Test */
+
+	outputJsonFile jsonOutputer;
+	int unlucky_student_number, unlucky_department_number;
+	string unlucky_student[310], unlucky_department[25];
+
+	unlucky_student_number = 200;
+	for (int i = 0; i < unlucky_student_number; i++) {
+		unlucky_student[i] = "031502209";
+	}
+	unlucky_department_number = 10;
+	for (int i = 0; i < unlucky_department_number; i++) {
+		unlucky_department[i] = "D013";
+	}
+
+	for (int i = 0; i < 20; i++) {
+		addmitted_department[i].number = i;
+		addmitted_department[i].department_number = "D09";
+		for (int j = 0; j < i; j++) {
+			addmitted_department[i].student_number[j] = "031502209";
+		}
+	}
+
+	jsonOutputer.output("output_data.json", unlucky_student_number, unlucky_student, addmitted_department, unlucky_department_number, unlucky_department);
+
 	return 0;
 }

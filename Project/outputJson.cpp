@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include <fstream>
 #include <iostream>
 #include <jsoncpp/json/json.h>
-#include "outputJson.h"
 #include "definition.h"
+#include "outputJson.h"
 using namespace std;
 
 extern addmitted addmitted_department[25];
@@ -30,8 +31,8 @@ bool outputJsonFile::output(const char* jsonFile, int unlucky_student_number, st
 			addmittedJson_instance["member"].append(Json::Value(addmitted_department[i].student_number[j]));
 		}
 
-		// append department number
-		addmittedJson_instance["department_no"].append(Json::Value(addmitted_department[i].department_number));
+		// department number
+		addmittedJson_instance["department_no"] = Json::Value(addmitted_department[i].department_number);
 
 		// append addmittedJson_instance to addmittedJson
 		addmittedJson.append(Json::Value(addmittedJson_instance));
@@ -46,12 +47,11 @@ bool outputJsonFile::output(const char* jsonFile, int unlucky_student_number, st
 	}
 
 	// output to .json file
-	Json::StyleWriter jsonWriter;
+	Json::StyledWriter jsonWriter;
 
-	ofstream outputstream;
-	outputstream.open(jsonFile);
-	outputstream << jsonWriter.write(root);
-	outputstream.close();
+	fstream outputStream(jsonFile);
+	outputStream << jsonWriter.write(root);
+	outputStream.close();
 
 	return true;
 }
