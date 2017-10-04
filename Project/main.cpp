@@ -4,6 +4,9 @@
 #include "definition.h"
 #include "jsonHandler.h"
 #include "outputJson.h"
+#include "matchAlgorithmTools.h"
+#include "matchAlgorithm.h"
+#include "parser.h"
 using namespace std;
 
 extern students student[310];
@@ -13,7 +16,8 @@ extern addmitted addmitted_department[25];
 int main() {
 	jsonHandler jsonHandler_instance;
 	if (jsonHandler_instance.processJSON("test/input_data.json")) {
-		for (int i = 0; i < 300; i++) {
+		cout << "parsing input_data.json successfully" << endl;
+		/*for (int i = 0; i < 300; i++) {
 			cout << "==================================================" << endl;
 			cout << "student.student_number:" << student[i].student_number << endl;
 			cout << "student.applications_department_number:" << student[i].applications_department_number << endl;
@@ -36,7 +40,7 @@ int main() {
 			cout << "department.event_schedules_number:" << department[i].event_schedules_number << endl;
 			cout << "department.event_schedules[last]:" << department[i].event_schedules[department[i].event_schedules_number-1] << endl;
 			cout << "==================================================" << endl;
-		}
+		}*/
 	} else {
 		cout << "Error: JSON file processing error!" << endl;
 		return 1;
@@ -44,6 +48,7 @@ int main() {
 
 	/* Output JSON Test */
 
+	/*
 	outputJsonFile jsonOutputer;
 	int unlucky_student_number, unlucky_department_number;
 	string unlucky_student[310], unlucky_department[25];
@@ -65,7 +70,28 @@ int main() {
 		}
 	}
 
-	jsonOutputer.output("output_data.json", unlucky_student_number, unlucky_student, addmitted_department, unlucky_department_number, unlucky_department);
+	jsonOutputer.output("output_data.json", unlucky_student_number, unlucky_student, addmitted_department, unlucky_department_number, unlucky_department);*/
+	
+	/*
+	parser parser_instance;
+	cout << parser_instance.parseWeekday("Sat.16:00~18:00") << endl;
+	cout << "start time" << endl;
+	cout << parser_instance.parseStartTime("Sat.00:01~18:00") << endl;
+	cout << "end time" << endl;
+	cout << parser_instance.parseEndTime("Sat.16:00~18:47") << endl; 
+	*/
 
+	/*
+	matchAlgorithmTools tool_instance;
+	tool_instance.deliverStudent();
+	cout << "eagerStudentNumber:" << tool_instance.eagerStudentNumber << endl;
+	cout << "lastone:" << tool_instance.eagerStudent[tool_instance.eagerStudentNumber-1].student_number << endl;
+	cout << "coldStudentNumber:" << tool_instance.coldStudentNumber << endl;
+	cout << "lastone:" << tool_instance.coldStudent[tool_instance.coldStudentNumber-1].student_number << endl;
+	*/
+
+	matchAlgorithm handler;
+	handler.algorithm();
+	
 	return 0;
 }

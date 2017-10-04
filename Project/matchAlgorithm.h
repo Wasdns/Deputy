@@ -9,6 +9,6 @@ class matchAlgorithm {
 public:
 	matchAlgorithm() { };
 	void algorithm();
-}
+};
 
 #endif

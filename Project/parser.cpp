@@ -23,12 +23,24 @@ int parser::parseWeekday(string free_time) {
 	for (int i = 0; i < free_time.length(); i++) {
 		if (free_time[i] == '.') break;
 		// join the current char to weekday
-		weekday += free_time[i];
+		weekday_str += free_time[i];
 	}
 
-	stringstream ss;
-	ss << weekday_str;
-	ss >> weekday;
+	if (weekday_str == "Sun") {
+		weekday = 0;
+	} else if (weekday_str == "Mon") {
+		weekday = 1;
+	} else if (weekday_str == "Tues") {
+		weekday = 2;
+	} else if (weekday_str == "Wed") {
+		weekday = 3;
+	} else if (weekday_str == "Thur") {
+		weekday = 4;
+	} else if (weekday_str == "Fri") {
+		weekday = 5;
+	} else if (weekday_str == "Sat") {
+		weekday = 6;
+	}
 
 	return weekday;
 }
@@ -77,11 +89,11 @@ int parser::parseStartTime(string free_time) {
 		}
 	}
 	
-	stringstream ss;
-	ss << start_time_str_prefix;
-	ss >> start_time_hour;
-	ss << start_time_str_suffix;
-	ss >> start_time_minute;
+	stringstream ss1, ss2;
+	ss1 << start_time_str_prefix;
+	ss1 >> start_time_hour;
+	ss2 << start_time_str_suffix;
+	ss2 >> start_time_minute;
 
 	// calculate total minutes
 	start_time = start_time_hour*60+start_time_minute;
@@ -128,11 +140,11 @@ int parser::parseEndTime(string free_time) {
 		}
 	}
 
-	stringstream ss;
-	ss << end_time_str_prefix;
-	ss >> end_time_hour;
-	ss << end_time_str_suffix;
-	ss >> end_time_minute;
+	stringstream ss1, ss2;
+	ss1 << end_time_str_prefix;
+	ss1 >> end_time_hour;
+	ss2 << end_time_str_suffix;
+	ss2 >> end_time_minute;
 
 	// calculate total minutes
 	end_time = end_time_hour*60+end_time_minute;

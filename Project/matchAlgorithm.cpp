@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include "definition.h"
 #include "matchAlgorithmTools.h"
 #include "matchAlgorithm.h"
@@ -43,7 +44,7 @@ void matchAlgorithm::algorithm() {
 		int currentStudent = i;
 
 		// the total number of departments that chosen by the current student
-		int depTotal = eagerStudent[currentStudent].applications_department_number;
+		int depTotal = algorithmTool.eagerStudent[currentStudent].applications_department_number;
 		
 		// j: the number of departments
 		// k: the number of student wishes
@@ -57,7 +58,7 @@ void matchAlgorithm::algorithm() {
 			// check if the department is the chosen one or not
 			for (int k = 0; k < depTotal; k++) {
 				// the k wish of current student
-				string kwish = eagerStudent[currentStudent].applications_department[k];
+				string kwish = algorithmTool.eagerStudent[currentStudent].applications_department[k];
 				
 				// if matched, means student "py" department
 				if (kwish == currentDepartment_str) {
@@ -67,7 +68,7 @@ void matchAlgorithm::algorithm() {
 					// calculate the value between current student and current department
 					// based on k(the current number of wishes) and the student instance 
 					// and the department instance  
-					int stuDepValue = matchedLevelValue(k, eagerStudent[currentStudent], department[currentDepartment]);
+					int stuDepValue = algorithmTool.matchedLevelValue(k, algorithmTool.eagerStudent[currentStudent], department[currentDepartment]);
 					// record the stuDepValue calculated by matchedLevelValue(...)
 					// in studentDepValues[student_instance_index][department_instance_index]
 					algorithmTool.studentDepValues[currentStudent][currentDepartment] = stuDepValue;
@@ -111,7 +112,7 @@ void matchAlgorithm::algorithm() {
 		addmitted_department[currentDepartment].number = 0;
 
 		// the limitation of current department
-		int limitation = departments[currentDepartment].member_limit;
+		int limitation = department[currentDepartment].member_limit;
 
 		// sort the students with regard to the values
 
@@ -130,7 +131,7 @@ void matchAlgorithm::algorithm() {
 		}
 
 		// sort the students based on the value(students vs currentDepartment)
-		sort(student_sorted.begin(), student_sorted.end(), cmp);
+		sort(student_sorted, student_sorted+310, cmp);
 
 		// the current department chooses "limitation"(eg.10-15) students
 		int k = 0, currentStuIdx = 0;
@@ -158,5 +159,4 @@ void matchAlgorithm::algorithm() {
 			k++;
 		}
 	}
-
 }

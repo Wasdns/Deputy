@@ -1,5 +1,6 @@
 #ifndef MATCHALGOTOOLS_H
 #define MATCHALGOTOOLS_H
+#include <cstring>
 
 extern students student[310];
 extern departments department[25];
@@ -39,6 +40,6 @@ public:
 
 	// the order among departments, 0/first: department D009, 1/second: department D005...
 	int order[20]; 
-}；
+};
 
 #endif

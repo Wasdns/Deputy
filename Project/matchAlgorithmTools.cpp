@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <algorithm>
 #include "definition.h"
 #include "parser.h"
 #include "matchAlgorithmTools.h"
@@ -81,7 +82,7 @@ void matchAlgorithmTools::calculateDepOrder() {
 	}
 
 	// sort the departments based on score
-	sort(department_sorted.begin(), department_sorted.end(), cmp);
+	sort(department_sorted, department_sorted+20, cmp);
 
 	// record the order among departments in order[20]
 	for (int i = 0; i < 20; i++) {
