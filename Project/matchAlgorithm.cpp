@@ -93,10 +93,14 @@ void matchAlgorithm::algorithm() {
 	/*
 	 * The following codes are used to:
 	 *
-	 * with the order among the departments, we 
+	 * With the order among the departments, we 
 	 * select the current department and help 
 	 * this department to choose students based
 	 * on the value(student vs currentDepartment).
+	 *
+	 * Then we pick out the unlucky students and 
+	 * unlucky departments for outputing JSON 
+	 * results.
 	 * 
 	 */
 
@@ -123,8 +127,10 @@ void matchAlgorithm::algorithm() {
 			// the value between currentStudent and currentDepartment
 			int currentValue = algorithmTool.studentDepValues[currentStudent][currentDepartment];
 
-			// mark the isChosenByDepartment as false
-			student[currentStudent].isChosenByDepartment = false;
+			// at the first time, mark the isChosenByDepartment as false
+			if (i == 0) {
+				student[currentStudent].isChosenByDepartment = false;
+			}
 
 			student_sorted[j].index = currentStudent;
 			student_sorted[j].value = currentValue;
@@ -158,5 +164,23 @@ void matchAlgorithm::algorithm() {
 			currentStuIdx++;
 			k++;
 		}
+
+		// if the department does not receive any students
+		if (addmitted_department[currentDepartment].number == 0) {
+			// join it to unlucky_department
+			unlucky_department[unlucky_department_number++] = department[currentDepartment].department_number;
+		} 
+		// the total number of unlucky departments
+		unlucky_department_number--;
 	}
+
+	// search for unlucky students
+	for (int i = 0; i < 300; i++) {
+		// if the student has not been chosen by any departments
+		if (student[i].isChosenByDepartment == false) {
+			unlucky_student[unlucky_student_number++] = student[i].student_number;
+		}
+	}
+	// the total number of unlucky students
+	unlucky_student_number--;
 }

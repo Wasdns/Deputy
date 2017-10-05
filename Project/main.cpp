@@ -90,8 +90,13 @@ int main() {
 	cout << "lastone:" << tool_instance.coldStudent[tool_instance.coldStudentNumber-1].student_number << endl;
 	*/
 
+	// key algorithm for Deputy
 	matchAlgorithm handler;
 	handler.algorithm();
+	
+	// output the results that stored in handler to JSON file
+	outputJsonFile jsonOutputer;
+	jsonOutputer.output("output_data.json", handler.unlucky_student_number, handler.unlucky_student, addmitted_department, handler.unlucky_department_number, handler.unlucky_department);
 	
 	return 0;
 }
