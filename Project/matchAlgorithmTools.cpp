@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 #include "definition.h"
 #include "parser.h"
 #include "matchAlgorithmTools.h"
@@ -32,10 +33,111 @@ void matchAlgorithmTools::deliverStudent() {
 	}
 }
 
+/*
+ *  Function Name: matchedLevelValue
+ *  TODO
+ */ 
 int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, departments department_instance) {
-	parser algorithmParser; 
+	parser parse;
+	
+	int dep_weekdays_begin[200]; 
+	int dep_weekdays_end[200]; 
+	int stu_weekdays_begin[200]; 
+	int stu_weekdays_end[200]; 
 
-	return 0;
+	memset(dep_weekdays_begin, 0, sizeof(dep_weekdays_begin));
+	memset(dep_weekdays_end, 0, sizeof(dep_weekdays_end));
+	memset(stu_weekdays_begin, 0, sizeof(stu_weekdays_begin));
+	memset(stu_weekdays_end, 0, sizeof(stu_weekdays_end));
+
+	int dep_weekday_num = 0; 
+	int stu_weekday_num = 0; 
+
+	int wish_num = 0; 
+	
+	dep_weekday_num = department_instance.event_schedules_number;
+	stu_weekday_num = student_instance.free_time_number;
+	
+	wish_num = student_instance.applications_department_number;
+	
+	for (int i = 0; i < dep_weekday_num; i++) {
+		int Weekday, StartTime,EndTime;
+
+		Weekday = parse.parseWeekday(department_instance.event_schedules[i]);
+		StartTime = parse.parseStartTime(department_instance.event_schedules[i]);
+		EndTime = parse.parseEndTime(department_instance.event_schedules[i]);
+
+		dep_weekdays_begin[i] = Weekday*24*60+StartTime;
+		dep_weekdays_end[i] = Weekday*24*60+EndTime;
+	}
+	
+	for (int i = 0; i < stu_weekday_num; i++) {
+		int Weekday,StartTime,EndTime;
+
+		Weekday = parse.parseWeekday(student_instance.free_time[i]);
+		StartTime = parse.parseStartTime(student_instance.free_time[i]);
+		EndTime = parse.parseEndTime(student_instance.free_time[i]);
+
+		stu_weekdays_begin[i] = Weekday*24*60+StartTime;
+		stu_weekdays_end[i] = Weekday*24*60+EndTime;
+	}
+	
+	double values, match_tags;
+	match_tags = values = 0;
+
+	int times = 0; 
+	
+	for (int i = 0; i < dep_weekday_num; i++) {
+
+		int mark = 0; 
+		int match_times = 0;
+		int total_times = dep_weekdays_end[i]-dep_weekdays_begin[i];
+		
+		for (int j = 0; j < stu_weekday_num; j++) {	 
+			if (dep_weekdays_begin[i] >= stu_weekdays_begin[j] && dep_weekdays_end[i] <= stu_weekdays_end[j] || match_times >= total_times) {
+				mark = 1; 
+				break;
+			} else if (dep_weekdays_begin[i] <= stu_weekdays_begin[j] && stu_weekdays_begin[j] <= dep_weekdays_end[i]) {
+				if (stu_weekdays_end[j] >= dep_weekdays_end[i]) {
+					match_times += (dep_weekdays_end[i]-stu_weekdays_begin[j]);
+				} else {
+					match_times += (stu_weekdays_end[j]-stu_weekdays_begin[j]);
+				}
+			} else if(stu_weekdays_begin[j] <= dep_weekdays_begin[i] && dep_weekdays_begin[i] <= stu_weekdays_end[j]) {
+				match_times += (stu_weekdays_end[j]-dep_weekdays_begin[i]);
+			} 
+		}
+		
+		double percent1;
+		percent1 = (double)(match_times*100/total_times);
+		
+		if (mark == 1) {
+			times++;
+		} else if (percent1 >= 70) {
+			times++;
+		}
+		
+		mark = 0; 
+	}
+	
+	double percent2 = (double)(times*100/dep_weekday_num);
+	
+	if (percent2 <= 70){
+		return 0;
+	} else {
+		for (int i = 0; i < department_instance.tag_number; i++) {
+			for (int j = 0; j < student_instance.tag_number; j++) {
+				if (department_instance.tags[i] == student_instance.tags[j]) {
+					match_tags++;
+				}
+				
+			} 
+		}
+	}
+	
+	values = (2/student_instance.applications_department_number)*(5-k)*(5-k)+percent2*stu_weekday_num+(match_tags/department_instance.tag_number)*50;      //k´Ó0¿ªÊ¼£¬Èç¹û´Ó1¿ªÊ¼Òª¼Ó1 
+	
+	return values; 
 }
 
 struct department_sorted_t {
