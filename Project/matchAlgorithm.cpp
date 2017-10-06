@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <assert.h>
 #include "definition.h"
 #include "matchAlgorithmTools.h"
 #include "matchAlgorithm.h"
@@ -69,6 +70,7 @@ void matchAlgorithm::algorithm() {
 					// based on k(the current number of wishes) and the student instance 
 					// and the department instance  
 					int stuDepValue = algorithmTool.matchedLevelValue(k, algorithmTool.eagerStudent[currentStudent], department[currentDepartment]);
+					assert(stuDepValue != -1);
 					// record the stuDepValue calculated by matchedLevelValue(...)
 					// in studentDepValues[student_instance_index][department_instance_index]
 					algorithmTool.studentDepValues[currentStudent][currentDepartment] = stuDepValue;

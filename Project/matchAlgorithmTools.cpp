@@ -61,7 +61,7 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 	wish_num = student_instance.applications_department_number;
 	
 	for (int i = 0; i < dep_weekday_num; i++) {
-		int Weekday, StartTime,EndTime;
+		int Weekday = 0, StartTime = 0, EndTime = 0;
 
 		Weekday = parse.parseWeekday(department_instance.event_schedules[i]);
 		StartTime = parse.parseStartTime(department_instance.event_schedules[i]);
@@ -72,7 +72,7 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 	}
 	
 	for (int i = 0; i < stu_weekday_num; i++) {
-		int Weekday,StartTime,EndTime;
+		int Weekday = 0, StartTime = 0, EndTime = 0;
 
 		Weekday = parse.parseWeekday(student_instance.free_time[i]);
 		StartTime = parse.parseStartTime(student_instance.free_time[i]);
@@ -82,13 +82,10 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 		stu_weekdays_end[i] = Weekday*24*60+EndTime;
 	}
 	
-	double values, match_tags;
-	match_tags = values = 0;
-
+	double values = -1, match_tags = 0;
 	int times = 0; 
 	
 	for (int i = 0; i < dep_weekday_num; i++) {
-
 		int mark = 0; 
 		int match_times = 0;
 		int total_times = dep_weekdays_end[i]-dep_weekdays_begin[i];
@@ -105,10 +102,12 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 				}
 			} else if(stu_weekdays_begin[j] <= dep_weekdays_begin[i] && dep_weekdays_begin[i] <= stu_weekdays_end[j]) {
 				match_times += (stu_weekdays_end[j]-dep_weekdays_begin[i]);
-			} 
+			} else {
+				continue;
+			}
 		}
 		
-		double percent1;
+		double percent1 = 0;
 		percent1 = (double)(match_times*100/total_times);
 		
 		if (mark == 1) {
@@ -116,8 +115,6 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 		} else if (percent1 >= 70) {
 			times++;
 		}
-		
-		mark = 0; 
 	}
 	
 	double percent2 = (double)(times*100/dep_weekday_num);
@@ -130,12 +127,16 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 				if (department_instance.tags[i] == student_instance.tags[j]) {
 					match_tags++;
 				}
-				
 			} 
 		}
 	}
-	
-	values = (2/student_instance.applications_department_number)*(5-k)*(5-k)+percent2*stu_weekday_num+(match_tags/department_instance.tag_number)*50;      //k´Ó0¿ªÊ¼£¬Èç¹û´Ó1¿ªÊ¼Òª¼Ó1 
+
+	if (student_instance.applications_department_number != 0) {
+		values = (2/student_instance.applications_department_number)*(5-k)*(5-k)+percent2*stu_weekday_num;
+		if (department_instance.tag_number != 0) {
+			values += (match_tags/department_instance.tag_number)*50;
+		}
+	}
 	
 	return values; 
 }
