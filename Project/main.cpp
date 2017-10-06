@@ -96,7 +96,10 @@ int main() {
 	
 	// output the results that stored in handler to JSON file
 	outputJsonFile jsonOutputer;
+	// cout << "handler.unlucky_department_number:" << handler.unlucky_department_number << endl;
 	jsonOutputer.output("output_data.json", handler.unlucky_student_number, handler.unlucky_student, addmitted_department, handler.unlucky_department_number, handler.unlucky_department);
+
+	// cout << "handler.unlucky_student_number:" << handler.unlucky_student_number << endl;
 	
 	return 0;
 }

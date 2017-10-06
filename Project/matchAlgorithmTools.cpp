@@ -107,20 +107,25 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 			}
 		}
 		
+		// percent1: for each event, if the stu_match_time/event_total_time >= 60%,
+		// add 1 to match times
 		double percent1 = 0;
 		percent1 = (double)(match_times*100/total_times);
 		
 		if (mark == 1) {
 			times++;
-		} else if (percent1 >= 70) {
+		} else if (percent1 >= 60) {
 			times++;
 		}
 	}
 	
 	double percent2 = (double)(times*100/dep_weekday_num);
 	
+	double matchValue = 0;
+
+	// percent2: stu_match_times/dep_total_times
 	if (percent2 <= 70){
-		return 0;
+		matchValue = 4;
 	} else {
 		for (int i = 0; i < department_instance.tag_number; i++) {
 			for (int j = 0; j < student_instance.tag_number; j++) {
@@ -131,8 +136,12 @@ int matchAlgorithmTools::matchedLevelValue(int k, students student_instance, dep
 		}
 	}
 
+	if (matchValue == 0) {
+		matchValue = (percent2*stu_weekday_num)/100;
+	}
+
 	if (student_instance.applications_department_number != 0) {
-		values = (2/student_instance.applications_department_number)*(5-k)*(5-k)+percent2*stu_weekday_num;
+		values = (2/student_instance.applications_department_number)*(5-k)*(5-k)+matchValue;
 		if (department_instance.tag_number != 0) {
 			values += (match_tags/department_instance.tag_number)*50;
 		}

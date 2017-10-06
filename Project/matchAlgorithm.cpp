@@ -74,7 +74,6 @@ void matchAlgorithm::algorithm() {
 					// record the stuDepValue calculated by matchedLevelValue(...)
 					// in studentDepValues[student_instance_index][department_instance_index]
 					algorithmTool.studentDepValues[currentStudent][currentDepartment] = stuDepValue;
-
 					break;
 				}
 			}
@@ -154,7 +153,7 @@ void matchAlgorithm::algorithm() {
 				continue;
 			}
 			// if the value of current student == 0, end this process
-			if (value == 0) break;
+			if (value <= algorithmTool.lowBound) break;
 
 			// passed the abovementioned two examinations, join the student
 			// to the current department
@@ -172,9 +171,9 @@ void matchAlgorithm::algorithm() {
 			// join it to unlucky_department
 			unlucky_department[unlucky_department_number++] = department[currentDepartment].department_number;
 		} 
-		// the total number of unlucky departments
-		unlucky_department_number--;
 	}
+	// the total number of unlucky departments
+	unlucky_department_number--;
 
 	// search for unlucky students
 	for (int i = 0; i < 300; i++) {

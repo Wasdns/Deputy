@@ -9,6 +9,7 @@ extern addmitted addmitted_department[25];
 class matchAlgorithmTools {
 public:
 	matchAlgorithmTools() { 
+		lowBound = 25;
 		coldStudentNumber = 0;
 		eagerStudentNumber = 0; 
 		memset(studentDepValues, 0, sizeof(studentDepValues));
@@ -40,6 +41,9 @@ public:
 
 	// the order among departments, 0/first: department D009, 1/second: department D005...
 	int order[20]; 
+
+	// the lowbound
+	int lowBound;
 };
 
 #endif
