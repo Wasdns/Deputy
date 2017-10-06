@@ -20,32 +20,36 @@
 
 ## Usage
 
+**For Ubuntu 14.04:**
+
 1.First install jsoncpp:
-
-For Mac OSX environment:
-
-```
-// install homebrew
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-
-// install jsoncpp
-$ brew install jsoncpp
-```
-
-For Ubuntu14.04 environment(recommend):
 
 ```
 $ sudo apt-get install libjsoncpp-dev
 ```
 
-2.Compile the source codes(passed in Ubuntu 14.04 environment):
+2.Compile the source codes:
 
 ```
 $ cd Project/
 $ ./compile.sh
 ```
 
-TODO
+3.Edit your input data in terms of JSON format and name your file as "input_data.json", such as [input_data.json](https://github.com/Wasdns/Deputy/blob/master/Project/test/input_data.json).
+
+4.Execute the program:
+
+```
+$ ./main
+```
+
+The program will output the results to `output_data.json`.
+
+5.Clean your environment:
+
+```
+$ ./cleanup.sh
+```
 
 ## Performance Examination
 
