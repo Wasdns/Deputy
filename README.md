@@ -18,6 +18,10 @@
 
 实现一个智能自动分配算法，根据输入信息，输出部门和学生间的匹配信息（一个学生可以确认多个他所申请的部门，一个部门可以分配少于等于其要求的学生数的学生） 及 未被分配到学生的部门 和 未被部门选中的学生。
 
+## Required Dependencies
+
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
+
 ## Usage
 
 **For Ubuntu 14.04:**
@@ -51,6 +55,30 @@ The program will output the results to `output_data.json`.
 $ ./cleanup.sh
 ```
 
-## Performance Examination
+**For Windows 10:**
 
-TODO
+```
+> cd BIN/
+
+// we assume that you have maintained 
+// your input data in this directory
+> test.exe
+```
+
+## Deputy-generator
+
+We have implemented the generator of Deputy input data in this repo: 
+[Deputy-generator](https://github.com/Wasdns/Deputy-generator).
+
+For generating the input data, see the instructions 
+[here](https://github.com/Wasdns/Deputy-generator/blob/master/README.md#usage).
+
+## Test
+
+For testing both the repositories, you could use the script named 
+[check.sh](https://github.com/Wasdns/Deputy/blob/master/check.sh) to test the
+correctness.
+
+## Contact us
+
+Mail: wasdnsxchen@gmail.com
