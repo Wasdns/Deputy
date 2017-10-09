@@ -16,9 +16,13 @@ bool outputJsonFile::output(const char* jsonFile, int unlucky_student_number, st
 	Json::Value root;
 
 	// unlucky students
+	Json::Value unluckyStudentJson;
+	unluckyStudentJson.resize(0);
 	for (int i = 0; i < unlucky_student_number; i++) {
-		root["unlucky_student"].append(Json::Value(unlucky_student[i]));
+		unluckyStudentJson.append(Json::Value(unlucky_student[i]));
 	}
+
+	root["unlucky_student"] = Json::Value(unluckyStudentJson);
 
 	// admitted
 	Json::Value addmittedJson;
@@ -26,10 +30,15 @@ bool outputJsonFile::output(const char* jsonFile, int unlucky_student_number, st
 		Json::Value addmittedJson_instance;
 		
 		// append student number
+		Json::Value addmittedDepartmentMember;
+		addmittedDepartmentMember.resize(0);
+
 		int totalNumber = addmitted_department[i].number;
 		for (int j = 0; j < totalNumber; j++) {
-			addmittedJson_instance["member"].append(Json::Value(addmitted_department[i].student_number[j]));
+			addmittedDepartmentMember.append(Json::Value(addmitted_department[i].student_number[j]));
 		}
+
+		addmittedJson_instance["member"] = addmittedDepartmentMember;
 
 		// department number
 		addmittedJson_instance["department_no"] = Json::Value(addmitted_department[i].department_number);
@@ -42,9 +51,14 @@ bool outputJsonFile::output(const char* jsonFile, int unlucky_student_number, st
 	root["addmitted"] = Json::Value(addmittedJson);
 
 	// unlucky departments
+	Json::Value unluckyDepartmentJson;
+	unluckyDepartmentJson.resize(0);
+	
 	for (int i = 0; i < unlucky_department_number; i++) {
-		root["unlucky_department"].append(Json::Value(unlucky_department[i]));
+		unluckyDepartmentJson.append(Json::Value(unlucky_department[i]));
 	}
+
+	root["unlucky_department"] = Json::Value(unluckyDepartmentJson);
 
 	// output to .json file
 	Json::StyledWriter jsonWriter;

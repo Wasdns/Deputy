@@ -172,8 +172,6 @@ void matchAlgorithm::algorithm() {
 			unlucky_department[unlucky_department_number++] = department[currentDepartment].department_number;
 		} 
 	}
-	// the total number of unlucky departments
-	unlucky_department_number--;
 
 	// search for unlucky students
 	for (int i = 0; i < 300; i++) {
@@ -182,6 +180,4 @@ void matchAlgorithm::algorithm() {
 			unlucky_student[unlucky_student_number++] = student[i].student_number;
 		}
 	}
-	// the total number of unlucky students
-	unlucky_student_number--;
 }
