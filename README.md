@@ -1,5 +1,7 @@
 # Deputy: Department-to-Student bidirectional selection
 
+[![Build Status](https://www.travis-ci.org/Wasdns/Deputy.svg?branch=master)](https://www.travis-ci.org/Wasdns/Deputy)
+
 ## [Requirements](http://www.cnblogs.com/easteast/p/7604534.html)
 
 编码实现一个部门与学生的智能匹配的程序。
