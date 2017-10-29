@@ -1,0 +1,11 @@
+# Config file for automatic testing at travis-ci.org
+
+sudo: required
+
+language: generic
+
+install:
+  - sudo apt-get install libjsoncpp-dev
+
+script:
+  - sudo ./check.sh
